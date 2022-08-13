@@ -59,48 +59,50 @@
 <div class="col-lg-8">
 <div class="contact-wrap">
 <h3 class="mb-4 text-center">Send Me a Message</h3>
-<div id="form-message-warning" class="mb-4 w-100 text-center"></div>
-<div id="form-message-success" class="mb-4 w-100 text-center">
-Your message was sent, thank you!
-</div>
-<form method="POST" data-netlify="true" class="contactForm">
-<div class="row">
-<div class="col-md-12">
-<div class="form-group">
-<input type="text" class="form-control" name="name" required id="name" placeholder="Name">
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<input type="email" class="form-control" name="email" required id="email" placeholder="Email">
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<input type="text" class="form-control" name="subject" required id="subject" placeholder="Subject">
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<textarea name="message" required class="form-control" id="message" cols="30" rows="8" placeholder="Message"></textarea>
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<input type="submit" value="Send Message" class="btn btn-primary">
-<div class="submitting"></div>
-</div>
-</div>
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
 </section>
 
 </body>
+  <!-- modify this form HTML and place wherever you want your form -->
+<form id="my-form" action="https://formspree.io/f/xleveldp" method="POST">
+  <label>Email:</label>
+  <input type="email" name="email" />
+  <label>Message:</label>
+  <input type="text" name="message" />
+  <button id="my-form-button">Submit</button>
+  <p id="my-form-status"></p>
+</form>
+<!-- Place this script at the end of the body tag -->
+<script>
+    var form = document.getElementById("my-form");
+    
+    async function handleSubmit(event) {
+      event.preventDefault();
+      var status = document.getElementById("my-form-status");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          status.innerHTML = "Thanks for your submission!";
+          form.reset()
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+            } else {
+              status.innerHTML = "Oops! There was a problem submitting your form"
+            }
+          })
+        }
+      }).catch(error => {
+        status.innerHTML = "Oops! There was a problem submitting your form"
+      });
+    }
+    form.addEventListener("submit", handleSubmit)
+</script>
 </html>

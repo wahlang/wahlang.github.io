@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>blog - mathematica-post-1 &amp; wadbor-blog</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="block-post">
+    <meta name="author" content="Wadbor">    
+    <link rel="shortcut icon" href="icon.ico"> 
+    
+    <!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="assets/css/monokai-sublime.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+    
+
+</head> 
+
+<body>
+
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">Mathematica is one of the tools that I know of. Below I will show you an example  where a diagram related to physics is drawn using mathematica. </h2>
+				    <div class="meta mb-3"><span class="date">Published July 2021</span><span class="time">13:05</span><span class="comment"><a  class="text-link" href="#"></a></span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				    
+				    <p>Let us draw a block sliding an inclined plane which is an example in  physics where we draw a free body diagrams indicating the direction of different forces acting on the block. Here is how you do it:  </p>
+                    <figure class="blog-banner">
+				        <a href="https://wadbor.netlify.app"><img class="img-fluid" src="assets/images/blogpost/slideblock.png" alt="image"></a>
+				        <figcaption class="mt-2  image-caption">Figure 1 <a class="theme-link" href="https://wadbor.netlify.app" target="_blank">- Wadbor</a></figcaption>
+				    </figure>
+				    
+				    <h3 class="mt-5 mb-3">Code that generate figure 1.  </h3>
+				    <pre>
+                        <code>
+    g1 = Graphics[Line[{{0, 0}, {30, 0}}]];    
+    g2 = Graphics[{Thick, Line[{{0, 0}, {20, 20}}]}];
+    g3 = Graphics[{Opacity[0.2], Blue,Rotate[Rectangle[{8, 8}, {12, 12}], 45 Degree, {Left, Bottom}]}];
+    g4 = Graphics[{Orange, Thickness[0.01], Arrow[{{8, 11}, {8, 2.0}}]}];
+    g5 = Graphics[{Cyan, Thickness[0.01], Arrow[{{8, 10.8}, {3.8, 15}}]}];
+    g6 = Graphics[{Red, Thickness[0.008],Arrow[{{2.4, 5.2}, {6.6, 9.4}}]}];
+    g7 = Graphics[Text[StyleForm["Weight", FontSize -> 14, FontWeight -> Bold], {10, 5}, {0, 1}, {0, -1}]];
+    g8 = Graphics[Text[StyleForm["Normal", FontSize -> 14, FontWeight -> Bold], {9,12.2}, {1, 1}, {1, -1}]];
+    g9 = Graphics[Text[StyleForm["Friction", FontSize -> 14, FontWeight -> Bold], {3, 8}, {0, 1}, {1, 1}]];<br>
+        (*Finally*)
+        Show[g1, g2, g3, g4, g5, g6, g7, g8, g9]
+                        </code>
+                    </pre>
+				    
+		
+				    
+                    <h3 class="mt-5 mb-3">Let us see another example, how to draw a grids.  </h3>
+				    <pre>
+                        <code>
+    l0 = Graphics[{Thick, Line[{{0, 0}, {8, 0}}]}];    
+    l1 = Graphics[{Thick, Line[{{0, 1}, {8, 1}}]}];
+    l2 = Graphics[{Thick, Line[{{0, 2}, {8, 2}}]}];
+    l3 = Graphics[{Thick, Line[{{0, 3}, {8, 3}}]}];
+    l4 = Graphics[{Thick, Line[{{0, 4}, {8, 4}}]}];
+    l5 = Graphics[{Thick, Line[{{0, 5}, {8, 5}}]}];
+                            <br>
+    la0 = Graphics[{Thick, Line[{{0, 0}, {0, 5}}]}];
+    la1 = Graphics[{Thick, Line[{{1, 0}, {1, 5}}]}];
+    la2 = Graphics[{Thick, Line[{{2, 0}, {2, 5}}]}];
+    la3 = Graphics[{Thick, Line[{{3, 0}, {3, 5}}]}];
+    la4 = Graphics[{Thick, Line[{{4, 0}, {4, 5}}]}];
+    la5 = Graphics[{Thick, Line[{{5, 0}, {5, 5}}]}];
+    la6 = Graphics[{Thick, Line[{{6, 0}, {6, 5}}]}];
+    la7 = Graphics[{Thick, Line[{{7, 0}, {7, 5}}]}];
+    la8 = Graphics[{Thick, Line[{{8, 0}, {8, 5}}]}];<br>
+    d0 = Graphics[{Red, Disk[{4, 3}, 0.15]}];
+    d1 = Graphics[{Red, Disk[{4, 4}, 0.15]}];
+    d2 = Graphics[{Red, Disk[{4, 2}, 0.15]}];
+    d3 = Graphics[{Red, Disk[{3, 3}, 0.15]}];
+    d4 = Graphics[{Red, Disk[{5, 3}, 0.15]}];<br>
+    r1 = Graphics[Text[Style["x(i)", Medium], {4, -0.3}]];
+    r2 = Graphics[Text[Style["x(i-1)", Medium], {3, -0.3}]];
+    r3 = Graphics[Text[Style["x(i+1)", Medium], {5, -0.3}]];
+    r4 = Graphics[Text[Style["x(n-1)", Medium], {7, -0.3}]];
+    r5 = Graphics[Text[Style["x(n)", Medium], {8, -0.3}]];
+    r6 = Graphics[Text[Style["x(2)", Medium], {1, -0.3}]];
+    r7 = Graphics[Text[Style["x(1)", Medium], {0, -0.3}]];<br>
+    t0 = Graphics[Text[Style["y(1)", Medium], {-0.3, 0}]];
+    t1 = Graphics[Text[Style["y(j-1)", Medium], {-0.4, 2}]];
+    t2 = Graphics[Text[Style["y(j)", Medium], {-0.3, 3}]];
+    t3 = Graphics[Text[Style["y(j+1)", Medium], {-0.4, 4}]];
+    t4 = Graphics[Text[Style["y(m)", Medium], {-0.3, 5}]];<br>
+
+                            
+        (*Finally*)
+
+    Show[l0, l1, l2, l3, l4, l5, la0, la1, la2, la3, la4, la5, la6, la7, la8, d0, d1, d2, d3, d4, r1, r2, r3, r4, r5, r6, r7, t0, t1, t2, t3,t4]
+                            </code>
+                    </pre>
+                    <h3 class="mt-5 mb-3">Output result:  </h3>
+                    <figure class="blog-banner">
+				        <a href="https://wadbor.netlify.app"><img class="img-fluid" src="assets/images/blogpost/grid.png" alt="image"></a>
+				        <figcaption class="mt-2  image-caption">Figure 2 <a class="theme-link" href="https://wadbor.netlify.app" target="_blank">- Wadbor</a></figcaption>
+				    </figure>   
+				   
+			    </div>
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	    
+	     <footer class="footer text-center py-4">
+			<small class="copyright"> Copyright &copy; <a href="https://wadbor.netlify.app/" target="_blank">Wadbor Wahlang</a></small>
+		</footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script>
+    
+    <!-- Dark Mode -->
+	<script src="assets/plugins/js-cookie.min.js"></script>
+	<script src="assets/js/dark-mode.js"></script>
+
+</body>
+</html> 
+

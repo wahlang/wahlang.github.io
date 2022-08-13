@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>mathematica-post-2 &amp; Wadbor-blog</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="block-post">
+    <meta name="author" content="Wadbor">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="assets/css/monokai-sublime.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+    
+
+</head> 
+
+<body>
+
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">Construction of Chebyshev differentiation matrices  </h2>
+				    <div class="meta mb-3"><span class="date">Published October 2021</span><span class="time">13:22</span><span class="comment"><a  class="text-link" href="#"></a></span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				    
+				    <p> In this <a href="python-post-2.html"> post</a>,  I showed you how to compute the Chebyshev differentiation matrices using Python, here I will show you how to do it in Mathematica ('cause why not?)  </p>
+                    <figure class="blog-banner">
+				        <a href="https://wadbor.netlify.app"><img class="img-fluid" src="assets/images/blogpost/gridpoints.png" alt="image"></a>
+				        <figcaption class="mt-2  image-caption">Figure. <a class="theme-link" href="https://wadbor.netlify.app" target="_blank"> Grid points which are (not) equally spaced</a></figcaption>
+				    </figure>
+				    
+				    <h3 class="mt-5 mb-3">Here is how you do it.  </h3>
+				    <pre>
+                        <code>
+Cheb[a_, b_, nn_] := Module[{x, D1, D2} ,
+   
+                    x = Table[1/2 (a + b) + 1/2 (a - b) Cos[(\[Pi] (i - 1))/nn], {i, 1, nn + 1}];
+
+                    D1 = NDSolve`FiniteDifferenceDerivative[Derivative[1], {x}, "DifferenceOrder" -> "Pseudospectral"]["DifferentiationMatrix"];
+                            
+                    D2 = NDSolve`FiniteDifferenceDerivative[Derivative[2], {x}, "DifferenceOrder" -> "Pseudospectral"]["DifferentiationMatrix"];
+                            
+                        {x, D1, D2}
+                    ];
+                        </code>
+                    </pre>
+				    
+                    <p class="mb-3">Here, x is an array of points on the grid, while D1 and D2 are first and second order differentiation matrices. Below we will pick up some examples to test our code.</p>
+				    
+                    <h3 class="mt-6 mb-3">Example: 1.  </h3>
+                    <p class="mb-3">As our first example, let us choose the same function Sin(x) considered <a href="python-post-2" target="_blank"> here</a></p>
+				    <pre>
+                        <code>
+f[x_] := Sin[x];<br>
+x = Cheb[-1., 1., 10][[1]];
+feval = Table[f[x[[i]]], {i, 1, 11}];(*Evaluate the function on the gridpoints*)
+fp = Cheb[-1., 1., 10][[2]].feval; (*first Derivative on the gridpoints*)
+fpp = Cheb[-1., 1., 10][[3]].feval; (*second Derivative on the gridpoints*)
+
+p1 = ListPlot[{Table[{x[[i]], fp[[i]]}, {i, 1, 11}], Table[{x[[i]], fpp[[i]]}, {i, 1, 11}]}, Frame -> True,PlotMarkers -> {"o", "x"}, PlotStyle -> {Red, Blue}];
+p2 = Plot[{f'[x], f''[x]}, {x, -1, 1}, Frame -> True, PlotStyle -> {Thickness[0.005], Thickness[0.005]}];  (*Plot the analytical function*)   
+
+(*Let's compare the result*)
+
+Show[p1, p2]
+                            </code>
+                    </pre>
+                    <h3 class="mt-5 mb-3"> Output result:  </h3>
+                    <figure class="blog-banner">
+				        <a href="https://wadbor.netlify.app"><img class="img-fluid" src="assets/images/blogpost/ndiff_mathematica.png" alt="image"></a>
+				        <figcaption class="mt-2  image-caption">Same as we've seen before when we used python </figcaption>
+				    </figure>   
+				   
+                    <h3 class="mt-6 mb-3">Example: 2.  </h3>
+                    <p class="mb-3"> Let us take a more complicated example from <a href="https://wadbor.netlify.app/QMbooks/Lloyd%20N.%20Trefethen.pdf" target="_blank"> this</a> book  a 2D Poisson problem</p>
+                    <figure class="blog-banner">
+                        <img src="https://latex.codecogs.com/gif.latex?\begin{align}U_{xx}&plus;U_{yy}&space;=&space;10\,\text{sin}(8\,x(y-1))\;,\;\;-1<x,y<1\;,\;U=0\;\text{on&space;the&space;boundary}\nonumber&space;\end{align}" title="\begin{align}U_{xx}+U_{yy} = 10\,\text{sin}(8\,x(y-1))\;,\;\;-1<x,y<1\;,\;U=0\;\text{on the boundary}\nonumber \end{align}" />
+                    </figure>
+                   <p>Let us Solve this equation</p>
+                   <pre>
+                       <code>
+Llyod[nn_] := Module[{xT, x1, y1, ff, LL, sol, datasol},
+    xT = Cheb[-1., 1., nn][[1]];
+    x1 = Table[Flatten[Table[{xT[[i]], xT[[j]]}, {i, 2, nn}, {j, 2, nn}], 1][[i, 1]], {i, 1, (nn - 1)^2}];
+    y1 = Table[Flatten[Table[{xT[[i]], xT[[j]]}, {i, 2, nn}, {j, 2, nn}], 1][[i, 2]], {i, 1, (nn - 1)^2}];
+    ff = 10 Sin[8* xx*(yy - 1)] /. {xx -> x1, yy -> y1};
+    LL = KroneckerProduct[IdentityMatrix[nn - 1],Cheb[-1., 1., nn][[3]][[2 ;; -2, 2 ;; -2]]] + KroneckerProduct[Cheb[-1., 1., nn][[3]][[2 ;; -2, 2 ;; -2]], IdentityMatrix[nn - 1]];
+    sol = LinearSolve[LL, ff];
+    datasol = Partition[sol, nn - 1];
+                        
+    ListPlot3D[Flatten[Table[ {xT[[i]] , xT[[j]], datasol[[i, j]] }, {i, 1, nn - 1 }, {j, 1, nn - 1}], 1], InterpolationOrder -> 3,AspectRatio -> 1, ColorFunction -> "Rainbow", Mesh -> All, PlotRange -> All, PlotTheme -> "Default", ImageSize -> 600]
+    ]
+    Llyod[41]
+                       </code>
+                   </pre>
+                   <figure class="blog-banner">
+                    <a href="https://wadbor.netlify.app"><img class="img-fluid" src="assets/images/blogpost/3dsol.png" alt="image"></a>
+                    <figcaption class="mt-2  image-caption">Plot of solution. Same as in the book. Note: clarification on the code contact me</figcaption>
+                </figure>    
+			    </div>
+				    
+			    
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	    
+	     <footer class="footer text-center py-4">
+			<small class="copyright"> Copyright &copy; <a href="https://wadbor.netlify.app/" target="_blank">Wadbor Wahlang</a></small>
+		</footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script>
+    
+    <!-- Dark Mode -->
+	<script src="assets/plugins/js-cookie.min.js"></script>
+	<script src="assets/js/dark-mode.js"></script>
+
+</body>
+</html> 
+

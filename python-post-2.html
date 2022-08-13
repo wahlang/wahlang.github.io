@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>blog - &amp; wadbor-blog</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="python-post">
+    <meta name="author" content="Wadbor">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="assets/css/monokai-sublime.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+    
+
+</head> 
+
+<body>
+
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">Numerical differentiation in Python  </h2>
+				    <div class="meta mb-3"><span class="date">Published October 2021</span><span class="time">12:05</span><span class="comment"><a  class="text-link" href="#">0 comments</a></span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				    
+				    <h5 class=my-3> We shall discuss about how to perform differentiation on a data points using the Chebyshev Differentiation Matrices
+                        (we will call it D)</h5>
+                    
+                    <p>In solving physics problems numerically, we encounter several scenarios where we have to differentiate a function that doesn't have an analytical expression but only the data points. 
+                        Therefore we require numerical methods to do so. One of which is the Pseudo spectral methods where the grid points are not equally spaced, unlike the Finite difference method where the discretized grids are equally-spaced.
+                         We will not discuss the details here, we refer to  <a href=https://wadbor.netlify.app/QMbooks/Lloyd%20N.%20Trefethen.pdf target=_blank>this</a> book for discussion. We will simply show you how to do it in python (because it's Free)
+                        . We will begin by writing down the formulae needed for our purpose.</p>
+                        <p class=my-3>First let us define the grid-points in an interval [a,b],by using the following formula <br>
+                            <img src="https://latex.codecogs.com/gif.latex?\begin{equation}x_j\,=\,\frac{1}{2}\,(a&plus;b)\,&plus;\frac{1}{2}\,(a-b)cos(\frac{j\,\pi}{N})&space;\end{equation}" title="\begin{equation}x_j\,=\,\frac{1}{2}\,(a+b)\,+\frac{1}{2}\,(a-b)cos(\frac{j\,\pi}{N}) \end{equation}" /> <br>
+                        where N is the number of points on the grid </p>            
+                                    
+                        <p class=my-3>Now the dimension of the Differentiation Matrices are <img src="https://latex.codecogs.com/gif.latex?(N&plus;1)\,\times\,(N&plus;1)" title="(N+1)\,\times\,(N+1)" /> with the formula given by </p>
+                        <p class="my-3"><img src="https://latex.codecogs.com/gif.latex?\begin{align}&space;&D_{ij}\,=\,\frac{c_i}{c_j}\frac{(-1)^{i&plus;j}}{x_i-x_j}\;\text{for}\;i\ne\,j;\;i,j=1,...,N-1\nonumber\\&space;&D_{00}\,=\,\frac{2N^2&plus;1}{6},\;D_{NN}\,=\,-\frac{2N^2&plus;1}{6},D_{jj}\,=\,\frac{-x_j}{2(1-x_j^2)}\;\;\text{for}\;j=1,...,N-1\nonumber&space;\end{align}" title="\begin{align} &D_{ij}\,=\,\frac{c_i}{c_j}\frac{(-1)^{i+j}}{x_i-x_j}\;\text{for}\;i\ne\,j;\;i,j=1,...,N-1\nonumber\\ &D_{00}\,=\,\frac{2N^2+1}{6},\;D_{NN}\,=\,-\frac{2N^2+1}{6},D_{jj}\,=\,\frac{-x_j}{2(1-x_j^2)}\;\;\text{for}\;j=1,...,N-1\nonumber \end{align}" /></p>
+                        <p class="my-3">Now let us jump into python</p>    
+                    <pre>
+                        <code>
+#import modules
+
+import numpy as np
+from sympy import *
+import matplotlib.pyplot as plt
+
+N = 4                       # number of grid points
+D = np.zeros((N+1,N+1))     # initialize (N+1) by (N+1) array filled with zeros 
+
+D[0][0] = -(2*N**2+1)/6
+D[N][N] = (2*N**2+1)/6
+D[N][0] = 0.5*(-1)**N
+D[0][N] = -0.5*(-1)**N
+
+x = np.zeros(N+1)
+a = -1
+b = 1
+
+for i in range(N+1):  
+    x[i] = 0.5*(a+b) + 0.5*(a - b)*np.cos(np.pi*i/(N))
+   
+
+#diagonal
+for i in range(1,N):
+    D[i,i] = -x[i]/(2*(1-x[i]**2))
+
+#off-diagonal
+for i in range(1,N):
+        for j in range(1,N):
+            if i == j:
+                continue
+            D[i,j] = (-1)**(i+j)/(x[i] - x[j]) 
+            
+#right  column            
+for i in range(1,N):
+    D[i,N] = 0.5*(-1)**(i+N)/(x[i] - x[N])
+#left column    
+for i in range(1,N):
+    D[i,0] = 0.5*(-1)**(i)/(x[i] - x[0])   
+
+#bottom row    
+for j in range(1,N):
+    D[N,j] = 2*(-1)**(j+N)/(x[N] - x[j])
+
+#top row    
+for j in range(1,N):
+    D[0,j] = 2*(-1)**(j)/(x[0] - x[j])
+#display the Matrices
+
+Matrix(D)           # Display the matrix
+    			
+                        </code>
+                    </pre>
+				    
+		
+				    
+                   
+                    <h6 class="my-3">Output matrix for N=4:  </h6>
+                    <figure class="blog-banner">
+				        <img src="https://latex.codecogs.com/gif.latex?\left(\begin{array}{ccccc}&space;-5.500&space;&6.828&space;&-2.00&space;&1.171&&space;-0.50\\&space;-1.707&&space;0.707&space;&1.414&space;&-0.707&&space;0.292&space;\\&space;0.500&&space;-1.414&space;&0&space;&1.414&&space;-0.500\\&space;-0.292&&space;0.707&space;&-1.414&space;&-0.707&&space;1.707\\&space;0.500&&space;-1.171&space;&2.00&-6.828&&space;5.500\end{array}\right)" title="\left(\begin{array}{ccccc} -5.500 &6.828 &-2.00 &1.171& -0.50\\ -1.707& 0.707 &1.414 &-0.707& 0.292 \\ 0.500& -1.414 &0 &1.414& -0.500\\ -0.292& 0.707 &-1.414 &-0.707& 1.707\\ 0.500& -1.171 &2.00&-6.828& 5.500\end{array}\right)" />
+				    </figure>   
+				   <p>Now let us try to impliment if it works. We will choose a simple function like <img src="https://latex.codecogs.com/gif.latex?\text{Sin}(x)" title="\text{Sin}(x)" /> where we know its first  and second derivative</p>
+			    
+                    <pre>
+                        <code>
+def funx(x):
+    return np.sin(x)
+def dfunx(x):
+    return np.cos(x)
+def ddfunx(x):
+    return -np.sin(x)
+y1 = funx(x)            # Evaluate the function on the same grid ! very important
+y1p = dfunx(x)          # analytical first derivative
+y2p = ddfunx(x)         # analytical second derivative
+DD = np.dot(D,D)        # second derivative
+y1pn=np.dot(D,y1)       # numerical first derivative
+y2pn=np.dot(DD,y1)      # numerical second derivative
+plt.figure(2)
+plt.plot(x,y1p,x,y1pn,'o',x,y2p,x,y2pn,'x')
+plt.show()
+                        </code>
+                    </pre>
+                    
+                    <figure class="blog-banner">
+				        <img src="assets/images/blogpost/ndiff.png" />
+				    </figure>   
+                    <h6 class="my-3">Not bad huh? for only N=4: Let us try N=10  </h6>
+                    <figure class="blog-banner">
+				        <img src="assets/images/blogpost/ndiff2.png" />
+				    </figure>
+                    <p>I'd say this is pretty accurate, if you want you can increase the number of grid points for more accuracy. There is a shorter code to compute the Chebyshev differentiation matrices <a href="https://github.com/nikola-m/another-chebpy/" target=_blank>here</a>, but I prefer this noob style (You can also download the module from<a href="https://github.com/wahlang/Numerical_python/" target="_blank"> here</a>). Later we will use this method of discretization to solve ODEs and PDEs boundary problems.  </p>
+                </div>
+				    
+			    
+				
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	    
+	     <footer class="footer text-center py-4">
+			<small class="copyright"> Copyright &copy; <a href="https://wadbor.netlify.app/" target="_blank">Wadbor Wahlang</a></small>
+		</footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script>
+    
+    <!-- Dark Mode -->
+	<script src="assets/plugins/js-cookie.min.js"></script>
+	<script src="assets/js/dark-mode.js"></script>
+
+</body>
+</html> 
+

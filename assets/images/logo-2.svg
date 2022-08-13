@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="26.45797mm"
+   height="26.458349mm"
+   viewBox="0 0 26.45797 26.458349"
+   version="1.1"
+   id="svg825"
+   inkscape:version="1.1.1 (1:1.1+202109281949+c3084ef5ed)"
+   sodipodi:docname="logo-2.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview827"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.150982"
+     inkscape:cx="98.611443"
+     inkscape:cy="64.727335"
+     inkscape:window-width="1920"
+     inkscape:window-height="1056"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs822" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-135.23185,-116.12531)">
+    <path
+       id="path38718"
+       style="fill:#0f5ee8;fill-opacity:1;stroke-width:0.291361;stroke-linecap:square;stroke-linejoin:round;paint-order:stroke fill markers"
+       d="m 138.62171,116.12537 c -1.87799,0 -3.38986,1.51185 -3.38986,3.38982 v 19.67865 c 0,1.87797 1.51187,3.38982 3.38986,3.38982 h 3.2217 c -0.005,-0.0699 -0.009,-0.1408 -0.009,-0.21292 V 116.6823 c 0,-0.19409 0.0196,-0.38109 0.0562,-0.55693 z m 5.69079,0 c 0.0366,0.17584 0.0564,0.36284 0.0564,0.55693 v 16.31892 h 8.18439 v -16.87585 z m 10.775,0 v 18.0669 c 0,0.011 -7.3e-4,0.0219 -7.3e-4,0.0329 4.6e-4,0.0144 7.3e-4,0.0286 7.3e-4,0.0431 0,0.70196 -0.3738,1.26708 -0.83819,1.26708 h -9.88037 v 6.83537 c 0,0.0721 -0.003,0.14297 -0.009,0.21293 h 13.94003 c 1.87798,0 3.38985,-1.51186 3.38985,-3.38982 v -19.6787 c 0,-1.87796 -1.51187,-3.38982 -3.38985,-3.38982 z m -1.47721,22.23286 a 1.3103716,1.3103584 0 0 1 1.31046,1.31022 1.3103716,1.3103584 0 0 1 -1.31046,1.31045 1.3103716,1.3103584 0 0 1 -1.31047,-1.31045 1.3103716,1.3103584 0 0 1 1.31047,-1.31022 z" />
+  </g>
+</svg>

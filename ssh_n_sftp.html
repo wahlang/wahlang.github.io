@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>SSH and SFTP file transfer &amp; w-blog</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="block-post">
+    <meta name="author" content="Wadbor">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="assets/css/monokai-sublime.css">
+
+    <!-- Blogimg CSS -->
+    <link rel="stylesheet" href="assets/css/blogstyle.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+    
+
+</head> 
+
+<body>
+
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2"> SSH connection and SFTP file transfer </h2>
+				    <div class="meta mb-3"><span class="date">Published November 2021</span><span class="time">13:22</span>
+                    </div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				    
+				    <p> Because I am a linux fan boy, what I will show you will only work on linux and in particular <a href="https://ubuntu.com/" target="_blank">Ubuntu</a> operating system (but it should work more or less the same in other operating systems). If you are like me, and have two PCs and you want to access or control the other PC from anyone of the PCs and also to be able to transfer files without the need to use pendrive or external device, then you have come to the right place. 
+                    </p>
+                    <p>
+                        SSH (Secure Shell or Secure Socket Shell) will do the connection for you and SFTP (SSH File Transfer Protocol) will handle the files transfer (Note: both the pcs should be connected to the same LAN network or WiFi). I will show you how to do this in a step-by-step easy to follow manner.
+                    </p>
+                    <p>
+                        First if you are in a running PC, open your terminal and type <code> ssh</code> if ssh is installed it should show something like this
+                    </p>
+                        
+                        <div class="ratio "></div>
+				        <img width="100%" height="200" src="assets/images/blogpost/ssh.png"  type="application/png">
+                        </div>
+                        <br>
+                    <p>Or if not already pre-installed then install with the following command and input your password</p>
+                    <p><code>sudo apt install openssh-server </code></p>
+                    <p>Next, run the following command</p>
+                    <p><code>sudo service ssh status </code></p>
+                    <p>
+                        You should see active and running
+                    </p>
+                        <div>
+				        <img width="100%" height="300" src="assets/images/blogpost/sshservice.png"  type="application/png">
+                        </div>
+                        <br>
+				   <p>Now do the same in the other PC and you are ready to connect, but you need to know the IP address of each PC. In order to determine the PC address type the following command in each PC</p> 
+                        <code>hostname -I</code>
+                    <p>You should see something like this</p>
+                        <div>
+				        <img width="100%" height="140" src="assets/images/blogpost/hostname.png"  type="application/png">
+                        </div>
+                        <br>
+                    <p>If you are connected with LAN cable and for mobile hotspot you might get extra strings of numbers but only the first strings are important. Now you can connect using ssh with the following command (replace username with your username in other pc and same with the ip address) </p>
+                    <code>ssh -X username@xxx.xxx.xxx.xxx</code><br><br>
+                    <p>Enter the other PC password</p>
+                    <div>
+				        <img width="100%" height="120" src="assets/images/blogpost/sshconnect.png"  type="application/png">
+                        </div>
+                        <br>
+                    <p>Now you should be able to see and open files from the terminal which are in the other PC, you should be able open programs as well.</p>
+                    <p>Now let us use FTPS to transfer files between the two PCs. Open your files explorer, I'll show you with Dolphin (KDE default files explorer) and gnome nautilus default file manager </p>
+                    <p>Open file manager and click on the home to bar</p>
+                    <div>
+				        <img width="100%" height="500" src="assets/images/blogpost/dolsftp1.png"  type="application/png">
+                        </div>
+                        <br>
+                    <p>You should see your username home directory like this</p>
+                        <div>
+                            <img width="100%" height="500" src="assets/images/blogpost/dolsftp2.png"  type="application/png">
+                            </div>
+                            <br>
+                    <p>Replace this directory  <code>/home/wadbor/</code> with  <code>sftp://username@ipaddress</code> (For example: sftp://wahlang@192.168.0.102) and hit enter followed by the other Pc your password. </p>
+                    <p>For gnome nautilus open it and click on 'Other Location' and in 'Connect to Server' box enter the same as above.</p>
+                    <p>Enjoy !</p>
+                </div>
+				    
+			    
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	    
+	     <footer class="footer text-center py-4">
+			<small class="copyright"> Copyright &copy; <a href="https://wadbor.netlify.app/" target="_blank">Wadbor Wahlang</a></small>
+		</footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script>
+    
+    <!-- Dark Mode -->
+	<script src="assets/plugins/js-cookie.min.js"></script>
+	<script src="assets/js/dark-mode.js"></script>
+
+</body>
+</html> 
+

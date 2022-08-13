@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>wadborblog</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog ">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="ico.png"> 
+    
+    <!-- FontAwesome JS-->
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="assets/css/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+    
+
+</head> 
+
+<body>
+	
+    
+    <div class="container">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container">
+			    <header class="blog-post-header">
+				    <h3 class="title mb-2">Programming Numerical Methods in Python </h3>
+				    <div class="meta mb-3"><span class="date">Published 3 months ago</span></div>
+			    </header>
+			    <div class="blog-post-body">
+						<h5 class="my-3">Python is used in programming the numerical methods because it has many
+							advantages:</h5>
+						<ul class="mb-5">
+						  <li class="mb-2">It has very simple and intuitive syntax with powerful statements and data structures.</li>
+						  <li class="mb-2">Numerous mathematical functions are defined in its standard and third party modules.</li>
+						  <li class="mb-2">Vectors and matrices can be created and manipulated by means of operators and functions from the module NumPy.</li>
+						  <li class="mb-2">Plotting functions of different plot types can be imported from the module matplotlib</li>
+						  <li class="mb-2">SciPy is a comprehensive module of a large collection of numerical method functions in
+							various topics such as interpolation, integration, linear algebra, etc.</li>
+						  <li class="mb-2">It is available for all main operating systems.</li>
+						  <li class="mb-2">It has several integrated development environments (IDE) like IDLE, Spyder and PyCharm
+							with powerful code editing, execution and debugging capabilities.</li>
+							<li class="mb-2">Python and its standard and third party modules are available for free download.</li>
+					
+						</ul>
+						
+	<p>To install click <a href="http://www.python.org/" target="_blank">Here</a> and for numerical
+		packages NumPy, SciPy and matplotlib you can download for free from <a href="http://pypi.python.org/" target="_blank">http://pypi.python.org/</a>.</p>
+					
+                    <p class="my-3">Let us define and plot a simple function using python: </p>
+                    <pre>
+					    <code>
+#import modules
+
+import numpy as np
+import matplotlib.pyplot as plot
+
+#define function		
+
+def f(x):
+	return x**2
+							
+#generate x values
+	x = np.linspace(-3,3,10)
+
+#evaluate the functions on the x-grid	
+y= f(x)
+
+#plot y vs x
+plot.plot(x,y, 'o')
+
+#Set title and axes labels
+
+plot.title('Plot of the function $f(x)=x^2$')
+plot.xlabel('$x$')
+plot.ylabel('$f(x)$')
+
+#display the Plot
+
+plot.show()					
+    </code>
+	<figure class="blog-banner">
+		<a href="https://wadbor.space"><img class="img-fluid" src="assets/images/blogpost/Figure_1.png" alt="image"></a>
+		<figcaption class="mt-2 text-center image-caption"> first python plot </figcaption>
+	</figure>
+				    </pre>
+
+
+
+
+					<blockquote class="blockquote m-lg-5 py-3 pl-4 px-lg-5">
+						<p class="mb-2">Science doesn't make it impossible to believe in God, it just makes it possible to not believe in God.</p>
+						<footer class="blockquote-footer">Steven Weinberg (Physicist)</footer>
+					</blockquote>
+	
+				   
+			    </div>
+				
+				
+				
+		    </div><!--//container-->
+	    </article>
+	
+	    <h1 class="text-center"><a href="index">Go back </a></h1>
+	<footer class="text-center theme-bg-light">
+		   
+		<small class="copyright">  © 2021 Wadbor Wahlang </small>
+	   </footer>
+    
+	</div><!--//main-wrapper-->
+	
+	<!-- Javascript -->          
+    <script src="second-pages/plugins/jquery-3.3.1.min.js"></script>
+    <script src="second-pages/plugins/popper.min.js"></script> 
+    <script src="second-pages/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+</body>
+</html> 
+

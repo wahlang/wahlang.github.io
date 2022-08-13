@@ -63,35 +63,17 @@
 <div id="form-message-success" class="mb-4 w-100 text-center">
 Your message was sent, thank you!
 </div>
-<form method="POST" action="https://formspree.io/f/xleveldp" class="contactForm">
-<div class="row">
-<div class="col-md-12">
-<div class="form-group">
-<input type="text" class="form-control" name="name" required id="name" placeholder="Name">
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<input type="email" class="form-control" name="email" required id="email" placeholder="Email">
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<input type="text" class="form-control" name="subject" required id="subject" placeholder="Subject">
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<textarea name="message" required class="form-control" id="message" cols="30" rows="8" placeholder="Message"></textarea>
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<input type="submit" value="Send Message" class="btn btn-primary">
-<div class="submitting"></div>
-</div>
-</div>
-</div>
+<form id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/xleveldp" method="post">
+  <fieldset id="fs-frm-inputs">
+    <label for="full-name">Full Name</label>
+    <input type="text" name="name" id="full-name" placeholder="First and Last" required="">
+    <label for="email-address">Email Address</label>
+    <input type="email" name="_replyto" id="email-address" placeholder="email@domain.tld" required="">
+    <label for="message">Message</label>
+    <textarea rows="5" name="message" id="message" placeholder="Aenean lacinia bibendum nulla sed consectetur. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus auctor fringilla nullam quis risus." required=""></textarea>
+    <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission">
+  </fieldset>
+  <input type="submit" value="Submit">
 </form>
 </div>
 </div>
